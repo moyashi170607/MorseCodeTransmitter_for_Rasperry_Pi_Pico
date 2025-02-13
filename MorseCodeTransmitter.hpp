@@ -62,6 +62,22 @@ class MorseCodeTransmitter
             {'9',"22221"},
         };
 
+
+        //文字をモールス信号にし、出力
+        std::string CharaToMorseCode(char char_temp){
+            std::string code;
+
+            for(int i = 0; i < 40; i++){
+                if(ctml[i].chara_code == char_temp){
+                    code = ctml[i].morse_code;
+                    return code;
+                }
+            }
+
+            return "0";
+        };
+
+    public:
         //長音
         void DashCode(uint pin,uint buzzer_pin){
             gpio_put(pin,1);
@@ -92,22 +108,6 @@ class MorseCodeTransmitter
             sleep_ms(CODE_UNIT*6);
         };
 
-
-        //文字をモールス信号にし、出力
-        std::string CharaToMorseCode(char char_temp){
-            std::string code;
-
-            for(int i = 0; i < 40; i++){
-                if(ctml[i].chara_code == char_temp){
-                    code = ctml[i].morse_code;
-                    return code;
-                }
-            }
-
-            return "0";
-        };
-
-    public:
         //文字列をモールス信号に変換,出力
         void PrintMorseCode(std::string plain_text,uint pin,uint buzzer_pin){
             std::transform(plain_text.begin(),plain_text.end(),plain_text.begin(),::toupper);
